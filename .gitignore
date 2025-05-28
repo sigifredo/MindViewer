@@ -1,3 +1,5 @@
+third_party/
+
 # C++ objects and libs
 *.slo
 *.lo

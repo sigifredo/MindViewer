@@ -9,5 +9,6 @@
         <file>resource/icon/clear.svg</file>
         <file>resource/icon/mind.svg</file>
         <file>resource/qss/mindviewer.qss</file>
+        <file>resource/translations_en.qm</file>
     </qresource>
 </RCC>
