@@ -48,6 +48,10 @@ set(UI_FILES
     ui/retriver.ui
 )
 
+set(CMAKE_AUTOUIC_SEARCH_PATHS
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui
+)
+
 # Set up Qt resources
 set(RESOURCE_FILES
     resource.qrc
@@ -104,4 +108,4 @@ if(UNIX AND NOT APPLE)
     install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION bin
     )
-endif() 
+endif()

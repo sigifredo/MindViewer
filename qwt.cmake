@@ -1,19 +1,26 @@
-# Find QWT package
-find_package(Qwt REQUIRED)
+# Supongamos que 'third_party/qwt' está en la raíz del proyecto
+set(QWT_ROOT_DIR "${CMAKE_SOURCE_DIR}/third_party/qwt")
 
-if(NOT Qwt_FOUND)
-    message(FATAL_ERROR "QWT library not found")
+# Establecer paths del include y la biblioteca
+set(QWT_INCLUDE_DIR "${QWT_ROOT_DIR}/src")
+set(QWT_LIBRARY_DIR "${QWT_ROOT_DIR}/build/lib")
+
+# Determina la librería según el sistema
+if(WIN32)
+    set(QWT_LIBRARY "${QWT_LIBRARY_DIR}/qwt.lib")
+elseif(APPLE)
+    set(QWT_LIBRARY "${QWT_LIBRARY_DIR}/libqwt.dylib")
+else()
+    set(QWT_LIBRARY "${QWT_LIBRARY_DIR}/libqwt.so")
 endif()
 
-# If custom QWT path is needed, uncomment and modify these lines:
-# set(QWT_ROOT_DIR "path/to/qwt")
-# set(QWT_INCLUDE_DIR "${QWT_ROOT_DIR}/include")
-# set(QWT_LIBRARY_DIR "${QWT_ROOT_DIR}/lib")
+# Crear un target IMPORTED para qwt::qwt
+add_library(qwt::qwt UNKNOWN IMPORTED)
+set_target_properties(qwt::qwt PROPERTIES
+    IMPORTED_LOCATION "${QWT_LIBRARY}"
+    INTERFACE_INCLUDE_DIRECTORIES "${QWT_INCLUDE_DIR}"
+)
 
-# Add QWT to include path
-include_directories(${QWT_INCLUDE_DIR})
-
-# Link directories if needed
-if(QWT_LIBRARY_DIR)
-    link_directories(${QWT_LIBRARY_DIR})
-endif() 
+# Opcional: mensajes de depuración
+message(STATUS "Qwt include: ${QWT_INCLUDE_DIR}")
+message(STATUS "Qwt library: ${QWT_LIBRARY}")
