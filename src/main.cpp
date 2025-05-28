@@ -12,13 +12,7 @@ int main(int argc, char *argv[])
     QTranslator translator;
 
     if (translator.load(":/resource/translations_en.qm"))
-    {
         a.installTranslator(&translator);
-    }
-    else
-    {
-        qWarning("No se ha podido cargar el archivo");
-    }
 
     QRect xyResolution = QApplication::primaryScreen()->geometry();
     MainWidget w;
